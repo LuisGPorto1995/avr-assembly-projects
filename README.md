@@ -47,36 +47,27 @@ As previously stated, the CTC can also be used to create a delay function by cou
 
 Using T/C 1, the control registers A, B and C need to be configured as follows:
 
-TCCR1A:
+**TCCR1A:**
 
-     7        6        5        4        3        2        1        0
--------------------------------------------------------------------------
-| COM1A1 | COM1A0 | COM1B1 | COM1B0 | COM1C1 | COM1C0 | WGM11  | WGM10  |
--------------------------------------------------------------------------
-|    0   |    0   |    0   |    0   |    0   |    0   |    0   |    0   |
--------------------------------------------------------------------------
+| Bit | 7 (COM1A1) | 6 (COM1A0) | 5 (COM1B1) | 4 (COM1B0) | 3 (COM1C1) | 2 (COM1C0) | 1 (WGM11) | 0 (WGM10) |
+|-----|------------|------------|------------|------------|------------|------------|-----------|-----------|
+| Val |     0      |     0      |     0      |     0      |     0      |     0      |     0     |     0     |
 
 The output compare pins don't need to be used, but the first 2 bits of the WGM need to be 0.
 
-TCCR1B:
+**TCCR1B:**
 
-     7        6        5        4        3        2        1        0
--------------------------------------------------------------------------
-| ICNC1  | ICES1  |    -   | WGM11  | WGM12  |  CS12  |  CS11  |  CS10  |
--------------------------------------------------------------------------
-|    0   |    0   |    -   |    0   |    1   |    0   |    1   |    1   |
--------------------------------------------------------------------------
+| Bit | 7 (ICNC1) | 6 (ICES1) | 5 (–) | 4 (WGM13) | 3 (WGM12) | 2 (CS12) | 1 (CS11) | 0 (CS10) |
+|-----|-----------|-----------|-------|-----------|-----------|----------|----------|----------|
+| Val |     0     |     0     |   –   |     0     |     1     |     0    |     1    |     1    |
 
-The input capture noice canceler and input capture edge select functionalities don't need to be used. WGM10:3 = 4 sets the OCR1A register to be used for counter resolution, not ICR1, and CS1:3 = 3 uses a 64 prescale.
+The input capture noise canceler and input capture edge select functionalities don't need to be used. WGM10:3 = 4 sets the OCR1A register to be used for counter resolution, not ICR1, and CS1:3 = 3 uses a 64 prescale.
 
-TCCR1B:
+**TCCR1C:**
 
-     7        6        5        4        3        2        1        0
--------------------------------------------------------------------------
-| FOC1A  | FOC1B  | FOC1C  |    -   |    -   |    -   |    -   |    -   |
--------------------------------------------------------------------------
-|    0   |    0   |    0   |    -   |    -   |    -   |    -   |    -   |
--------------------------------------------------------------------------
+| Bit | 7 (FOC1A) | 6 (FOC1B) | 5 (FOC1C) | 4 (–) | 3 (–) | 2 (–) | 1 (–) | 0 (–) |
+|-----|-----------|-----------|-----------|-------|-------|-------|-------|-------|
+| Val |     0     |     0     |     0     |   –   |   –   |   –   |   –   |   –   |
 
 There is no need to force the output compare in the code, so those bits can be set to zero
 
@@ -84,27 +75,21 @@ As for the OCR1A, the decimal value 249 is stored in the 16-bit register. Notice
 
 We also need to enable the interrupt for the output compare A match by setting OCIEnA bit to 1 in the TIMSK1 register:
 
-TIMSK1:
+**TIMSK1:**
 
-     7        6        5        4        3        2        1        0
--------------------------------------------------------------------------
-|    -   |    -   |  ICIE1 |    -   | OCIE1C | OCIE1B | OCIE1A |  TOIE1 |
--------------------------------------------------------------------------
-|    -   |    -   |    0   |    -   |    0   |    0   |    1   |    0   |
--------------------------------------------------------------------------
+| Bit | 7 (–) | 6 (–) | 5 (ICIE1) | 4 (–) | 3 (OCIE1C) | 2 (OCIE1B) | 1 (OCIE1A) | 0 (TOIE1) |
+|-----|-------|-------|-----------|-------|-------------|-------------|------------|-----------|
+| Val |   –   |   –   |     0     |   –   |     0       |     0       |     1      |     0     |
 
 *Status Register*
 
 The interrupt setup in the timer will be useless unless we set bit 7 (I) in the status register (SREG). This bit sets the global interruptions.
 
-SREG:
+**SREG:**
 
-     7        6        5        4        3        2        1        0
--------------------------------------------------------------------------
-|    I   |    T   |    H   |    S   |    V   |    N   |    Z   |    C   |
--------------------------------------------------------------------------
-|    1   |    x   |    x   |    x   |    x   |    x   |    x   |    x   |
--------------------------------------------------------------------------
+| Bit | 7 (I) | 6 (T) | 5 (H) | 4 (S) | 3 (V) | 2 (N) | 1 (Z) | 0 (C) |
+|-----|-------|-------|-------|-------|-------|-------|-------|-------|
+| Val |   1   |   x   |   x   |   x   |   x   |   x   |   x   |   x   |
 
 #### Blink loop and delay ms functions
 
