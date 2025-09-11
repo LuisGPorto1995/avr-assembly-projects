@@ -1,4 +1,4 @@
-;------------------------------------------------------------------------------
+;---------------------------------------------------------------------------------------
 ; AVR Assembly Projects | ATmega2560 (Arduino Mega) — Delay milliseconds with Timer1
 ;
 ; WHY THIS WORKS (hardware path)
@@ -16,131 +16,152 @@
 ; NOTES ON AVR I/O VS DATA SPACE
 ; - IN/OUT/SBI/CBI use the 0..0x3F I/O space → use (REG - 0x20).
 ; - LDS/STS target data space → use the register name directly.
-;------------------------------------------------------------------------------
+;---------------------------------------------------------------------------------------
 
 #include <avr/io.h>
 
-    .global main
-    .global TIMER1_COMPA_vect
-    .global delay_ms ; so we can call it from C code if needed.
-
-; --------------------------- LED selection ---------------------------
+.global main
+.global TIMER1_COMPA_vect
+;---------------------------------------------------------------------------------------
+; --------------------------- Macros ---------------------------------------------------
+.macro DelayMs value
+    ldi  r24, lo8(\value)
+    ldi  r25, hi8(\value)
+    rcall delay_ms
+.endm
+;---------------------------------------------------------------------------------------
+; --------------------------- Definitions ----------------------------------------------
 ; On Arduino Mega, the "L" LED is on PB7 (Arduino D13).
-.equ LED_DDR_IO ,   (DDRB-0x20)   ; I/O-space address for OUT.
-.equ LED_PORT_IO,   (PORTB-0x20)  ; I/O-space address for SBI/CBI.
-.equ LED_BIT    ,   7
-.equ SREG_IO    ,   (SREG-0x20)   ; I/O-space address for IN/OUT.
-
-; --------------------------- “variables” in SRAM ---------------------------
-    .data
+.equ    LED_DDR_IO , (DDRB-0x20)   ; I/O-space address for OUT.
+.equ    LED_PORT_IO, (PORTB-0x20)  ; I/O-space address for SBI/CBI.
+.equ    LED_BIT    , 7
+.equ    SREG_IO    , (SREG-0x20)   ; I/O-space address for IN/OUT.
+.equ    DELAY_MS   , 1000          ; Delay in milliseconds.
+;---------------------------------------------------------------------------------------
+; --------------------------- “variables” in SRAM --------------------------------------
+.data
 
 ; We use a 16-bit delay_count so we can support up to 65535 ms (65.535 s).
 ; Alternatively you can define just one byte but the max delay would be 255 ms (0,255s).
-delay_count:   .byte 2          ; 16-bit countdown for delay_ms
-
-; --------------------------- Timer1 COMPA ISR (1 ms) ------------------------
-    .text
+delay_count:    .byte 2
+;---------------------------------------------------------------------------------------
+; --------------------------- Code section ---------------------------------------------
+.text
+;---------------------------------------------------------------------------------------
+; --------------------------- Timer1 COMPA ISR (1 ms) ----------------------------------
 TIMER1_COMPA_vect:
-    ; Prologue: save the context of the registers we use + SREG (to re-enable I).
-    push r16
-    push r17
-    in   r16, SREG_IO
-    push r16
+    ; We need to save the context of the registers we use in the ISR even if we don't
+    ; use them in the main code. This is a good practice, specially for the SREG.
+    in      r0, SREG_IO
+    push    r0
+    push    r20
+    push    r21
+    push    r22
 
     ; Load delay_count from .data section and use or operation to check if it's zero.
-    lds  r16, delay_count
-    lds  r17, delay_count+1
-    or   r16, r17
-    breq 1f                     ; If zero, skip the decrement
+    lds     r20, delay_count
+    lds     r21, delay_count+1
+    ; Don't do the or operation using r20 and r21 directly.
+    ; The result would be stored in r20, modifying its value.
+    mov     r22, r20
+    or      r22, r21
+    ; If zero, skip decrement
+    breq    1f 
 
     ; Decrement delay_count (16-bit)
-    subi r16, 1                 ; LSB--
-    sbci r17, 0                 ; borrow into MSB
-    sts  delay_count,   r16
-    sts  delay_count+1, r17
+    subi    r20, 1
+    sbci    r21, 0
+    sts     delay_count,   r20
+    sts     delay_count+1, r21
     
-1:  ; Epilogue: restore flags + regs, then RETI (re-enables I)
-    pop  r16                    ; Restore SREG, which re-enables interrupts
-    out  SREG_IO, r16
-    pop  r17                    ; Restore the caller's registers
-    pop  r16
+1:  ; Restore context
+    pop     r22
+    pop     r21
+    pop     r20
+    out     SREG_IO, r0
+    pop     r0
     reti
-
-
-; --------------------------- init: GPIO + Timer1 ----------------------------
-; Sets PB7 as output. Configures Timer1 → 1 ms tick. Enables global interrupts.
+;---------------------------------------------------------------------------------------
+; --------------------------- init: GPIO + Timer1 + IRQs -------------------------------
 init:
-    ; PB7 = output
-    ldi  r16, (1<<LED_BIT)
-    out  LED_DDR_IO, r16
+    ; --- LED pin set as output ---
+    ldi     r16, (1<<LED_BIT)
+    out     LED_DDR_IO, r16
 
     ; --- Timer1 in CTC mode, 1 ms period ---
-    ; Clear TCCR1A (WGM11:0 = 0)
-    ; In CTC mode the counter is cleared to zero when the counter value (TCNT1) matches either the OCR1A (WGM1 bits 3:0 = 4) or the ICRn (WGM1 bits 3:0 = 12).
-    ldi r16, 0
-    sts TCCR1A, r16 ; We want to disable COMnX bits so we can use OCR1A for compare match only
-    sts TCCR1C, r16 ; No forced compare
+    ; TCCR1A: WGM11=0, WGM10=0 (CTC mode)
+    ; We want to disable COMnX bits so we can use OCR1A for compare match only
+    ldi     r16, 0
+    sts     TCCR1A, r16
 
-    ; TCCR1B: WGM12=1 (CTC), prescaler CS11|CS10 = /64
-    ldi  r16, (1<<WGM12) | (1<<CS11) | (1<<CS10)
-    sts  TCCR1B, r16
+    ; TCCR1C: FOC1A=0, FOC1B=0 (no forced compare)
+    sts     TCCR1C, r16
+
+    ; TCCR1B: WGM12=1 (CTC usinng OCRnX, not ICRn).
+    ; Prescale = /64 → CS12=0, CS11=1, CS10=1
+    ldi     r16, (1<<WGM12) | (1<<CS11) | (1<<CS10)
+    sts     TCCR1B, r16
 
     ; OCR1A = 249 (0x00F9) → f_clk/(prescale * (1 + OCR1A)) = 1.000 Hz = 1 ms
-    ; The value stored in OCR1A is the value to be compared with the counter value (TCNT1) when the WGM1 bits 3:0 = 4.
-    ldi  r16, hi8(249)
-    sts  OCR1AH, r16
-    ldi  r16, lo8(249)
-    sts  OCR1AL, r16
+    ldi     r16, hi8(249)
+    sts     OCR1AH, r16
+    ldi     r16, lo8(249)
+    sts     OCR1AL, r16
 
     ; Enable Timer1 Compare A interrupt (OCIE1A)
-    ldi  r16, (1<<OCIE1A)
-    sts  TIMSK1, r16
+    ldi     r16, (1<<OCIE1A)
+    sts     TIMSK1, r16
 
     ; Clear software counters
-    ldi  r16, 0
-    sts  delay_count,   r16
-    sts  delay_count+1, r16
+    ldi     r16, 0
+    sts     delay_count,   r16
+    sts     delay_count+1, r16
 
-    sei                         ; set I-bit in SREG → IRQs enabled
+    ; set I-bit in SREG → IRQs enabled
+    sei
     ret
 
-; --------------------------- delay_ms(n) ------------------------------------
+;---------------------------------------------------------------------------------------
+; --------------------------- delay_ms(n) ----------------------------------------------
 delay_ms:
-    ; r24 and r25 represent an 16-bit integer that specifies the number of milliseconds
-    ; The first check is on r24 because it's the lower byte and, if it's zero, then 
-    tst  r24    
-    brne 1f     ; If the low byte is non-zero, we can already proceed to store it
-    tst  r25    
-    breq 3f     
+    ; Check to see if the input n (in r25:r24) is zero.
+    tst     r24
+    ; If the low byte is non-zero, we can already proceed to store it
+    brne    1f
+    tst     r25
+    breq    3f
 
-1:  ; Store n into shared countdown (ISR decrements every 1 ms)
-    sts  delay_count,   r24
-    sts  delay_count+1, r25
+1:  ; Store n into the storage variable delay_count (16-bit)
+    cli
+    sts     delay_count,   r24
+    sts     delay_count+1, r25
+    sei
 
 2:  ; The program will stay in this loop until the ISR decrements delay_count to 0
-    lds  r18, delay_count
-    lds  r19, delay_count+1
-    or   r18, r19
-    brne 2b
+    cli
+    lds     r18, delay_count
+    lds     r19, delay_count+1
+    sei
+    or      r18, r19
+    brne    2b
+
 3:  ret
 
-; --------------------------- main -------------------------------------------
-; Called by avr-libc’s startup (which also builds the vector table).
-; Blink the onboard "L" LED (PB7) at ~2 Hz: 250 ms ON, 250 ms OFF.
+;---------------------------------------------------------------------------------------
+; --------------------------- main -----------------------------------------------------
 main:
     rcall init
 
+;---------------------------------------------------------------------------------------
+; --------------------------- Blink LED loop -------------------------------------------
 blink_loop:
 
-    sbi  LED_PORT_IO, LED_BIT   ; LED on
-    ; Storing 250 in a 16-bit register pair
-    ldi  r24, lo8(250)
-    ldi  r25, hi8(250)
-    rcall delay_ms
+    ; LED on
+    sbi     LED_PORT_IO, LED_BIT
+    DelayMs(DELAY_MS)
 
-    cbi  LED_PORT_IO, LED_BIT   ; LED off
-    ldi  r24, lo8(250)
-    ldi  r25, hi8(250)
-    rcall delay_ms
+    ; LED off
+    cbi     LED_PORT_IO, LED_BIT
+    DelayMs(DELAY_MS)
 
-    rjmp blink_loop
+    rjmp    blink_loop
