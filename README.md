@@ -35,14 +35,11 @@ cycle. If enabled (OCIEnX = 1), the Output Compare Flag generates an Output Comp
 
 First, in order to see the actual delay happening, the L LED in the board is used. For that, we need to configure the I/O port for it, located in the Port B. So, we need to configure the data direction register as output for bit 7 (where the LED is connected):
 
-DDRB:
+**DDRB:**
 
-     7        6        5        4        3        2        1        0
--------------------------------------------------------------------------
-|  DDB7  |  DDB6  |  DDB5  |  DDB4  |  DDB3  |  DDB2  |  DDB1  |  DDB0  |
--------------------------------------------------------------------------
-|    1   |    0   |    0   |    0   |    0   |    0   |    0   |    0   |
--------------------------------------------------------------------------
+| Bit | 7 (DDB7) | 6 (DDB6) | 5 (DDB5) | 4 (DDB4) | 3 (DDB3) | 2 (DDB2) | 1 (DDB1) | 0 (DDB0) |
+|-----|----------|----------|----------|----------|----------|----------|----------|----------|
+| Val |    1     |    0     |    0     |    0     |    0     |    0     |    0     |    0     |
 
 *Timer Configuration*
 
