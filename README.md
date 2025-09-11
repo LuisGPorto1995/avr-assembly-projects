@@ -2,7 +2,7 @@
 
 ---
 
-## Delay ms function
+## Delay ms function (v1.1.0)
 
 The first project is focused on creating a function that will be usefull for other projects.
 The easy way to create a delay would be to just execute a set ammount of instructions that do nothing, taking into account the speed of each clock cycle.
@@ -11,6 +11,8 @@ For ATmega2560 development board (Arduino Mega), the cristal has a frequency of 
 that most instructions take one clock cycle instead of the typical 4 cycles.
 
 That way, assuming that each instruction takes around 62,5ns to be executed, we can reach 1ms delay if we execute 16.000 instructions. However, that is obviously very ineficient. The best way to create a delay, is with Timer/Counters (T/Cs).
+
+Version 1.1.0 has a fix inside the Timer/Counter's interrupt service routine. By using the or operation with r20 and r21, r20 kept getting overwriten, which created an eternal loop because r20 would never get to zero. Using r22 to store the or result fixed that problem.
 
 ### Timer/Counters
 
