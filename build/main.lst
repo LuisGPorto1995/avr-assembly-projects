@@ -1,5 +1,5 @@
 
-AVRA   Ver. 1.4.2 src/main.asm Mon Sep 15 17:40:24 2025
+AVRA   Ver. 1.4.2 src/main.asm Thu Nov 20 18:47:43 2025
 
 
          ; =============================================================================
@@ -20,15 +20,15 @@ AVRA   Ver. 1.4.2 src/main.asm Mon Sep 15 17:40:24 2025
          
           .include "m2560def.inc"
          ;***** THIS IS A MACHINE GENERATED FILE - DO NOT EDIT ********************
-         ;***** Created: 2005-01-11 10:30 ******* Source: ATmega2560.xml **********
+         ;***** Created: 2011-02-09 12:03 ******* Source: ATmega2560.xml **********
          ;*************************************************************************
          ;* A P P L I C A T I O N   N O T E   F O R   T H E   A V R   F A M I L Y
          ;* 
          ;* Number            : AVR000
          ;* File Name         : "m2560def.inc"
          ;* Title             : Register/Bit Definitions for the ATmega2560
-         ;* Date              : 2005-01-11
-         ;* Version           : 2.14
+         ;* Date              : 2011-02-09
+         ;* Version           : 2.35
          ;* Support E-mail    : avr@atmel.com
          ;* Target MCU        : ATmega2560
          ;* 
@@ -79,21 +79,21 @@ AVRA   Ver. 1.4.2 src/main.asm Mon Sep 15 17:40:24 2025
          ; Definitions marked "MEMORY MAPPED"are extended I/O ports
          ; and cannot be used with IN/OUT instructions
           .equ	UDR3	= 0x136	; MEMORY MAPPED
-          .equ	UBRR3H	= 0x135	; MEMORY MAPPED
           .equ	UBRR3L	= 0x134	; MEMORY MAPPED
+          .equ	UBRR3H	= 0x135	; MEMORY MAPPED
           .equ	UCSR3C	= 0x132	; MEMORY MAPPED
           .equ	UCSR3B	= 0x131	; MEMORY MAPPED
           .equ	UCSR3A	= 0x130	; MEMORY MAPPED
-          .equ	OCR5CH	= 0x12d	; MEMORY MAPPED
           .equ	OCR5CL	= 0x12c	; MEMORY MAPPED
-          .equ	OCR5BH	= 0x12b	; MEMORY MAPPED
+          .equ	OCR5CH	= 0x12d	; MEMORY MAPPED
           .equ	OCR5BL	= 0x12a	; MEMORY MAPPED
-          .equ	OCR5AH	= 0x129	; MEMORY MAPPED
+          .equ	OCR5BH	= 0x12b	; MEMORY MAPPED
           .equ	OCR5AL	= 0x128	; MEMORY MAPPED
+          .equ	OCR5AH	= 0x129	; MEMORY MAPPED
           .equ	ICR5H	= 0x127	; MEMORY MAPPED
           .equ	ICR5L	= 0x126	; MEMORY MAPPED
-          .equ	TCNT5H	= 0x125	; MEMORY MAPPED
           .equ	TCNT5L	= 0x124	; MEMORY MAPPED
+          .equ	TCNT5H	= 0x125	; MEMORY MAPPED
           .equ	TCCR5C	= 0x122	; MEMORY MAPPED
           .equ	TCCR5B	= 0x121	; MEMORY MAPPED
           .equ	TCCR5A	= 0x120	; MEMORY MAPPED
@@ -110,20 +110,20 @@ AVRA   Ver. 1.4.2 src/main.asm Mon Sep 15 17:40:24 2025
           .equ	DDRH	= 0x101	; MEMORY MAPPED
           .equ	PINH	= 0x100	; MEMORY MAPPED
           .equ	UDR2	= 0xd6	; MEMORY MAPPED
-          .equ	UBRR2H	= 0xd5	; MEMORY MAPPED
           .equ	UBRR2L	= 0xd4	; MEMORY MAPPED
+          .equ	UBRR2H	= 0xd5	; MEMORY MAPPED
           .equ	UCSR2C	= 0xd2	; MEMORY MAPPED
           .equ	UCSR2B	= 0xd1	; MEMORY MAPPED
           .equ	UCSR2A	= 0xd0	; MEMORY MAPPED
           .equ	UDR1	= 0xce	; MEMORY MAPPED
-          .equ	UBRR1H	= 0xcd	; MEMORY MAPPED
           .equ	UBRR1L	= 0xcc	; MEMORY MAPPED
+          .equ	UBRR1H	= 0xcd	; MEMORY MAPPED
           .equ	UCSR1C	= 0xca	; MEMORY MAPPED
           .equ	UCSR1B	= 0xc9	; MEMORY MAPPED
           .equ	UCSR1A	= 0xc8	; MEMORY MAPPED
           .equ	UDR0	= 0xc6	; MEMORY MAPPED
-          .equ	UBRR0H	= 0xc5	; MEMORY MAPPED
           .equ	UBRR0L	= 0xc4	; MEMORY MAPPED
+          .equ	UBRR0H	= 0xc5	; MEMORY MAPPED
           .equ	UCSR0C	= 0xc2	; MEMORY MAPPED
           .equ	UCSR0B	= 0xc1	; MEMORY MAPPED
           .equ	UCSR0A	= 0xc0	; MEMORY MAPPED
@@ -139,42 +139,42 @@ AVRA   Ver. 1.4.2 src/main.asm Mon Sep 15 17:40:24 2025
           .equ	TCNT2	= 0xb2	; MEMORY MAPPED
           .equ	TCCR2B	= 0xb1	; MEMORY MAPPED
           .equ	TCCR2A	= 0xb0	; MEMORY MAPPED
-          .equ	OCR4CH	= 0xad	; MEMORY MAPPED
           .equ	OCR4CL	= 0xac	; MEMORY MAPPED
-          .equ	OCR4BH	= 0xab	; MEMORY MAPPED
+          .equ	OCR4CH	= 0xad	; MEMORY MAPPED
           .equ	OCR4BL	= 0xaa	; MEMORY MAPPED
-          .equ	OCR4AH	= 0xa9	; MEMORY MAPPED
+          .equ	OCR4BH	= 0xab	; MEMORY MAPPED
           .equ	OCR4AL	= 0xa8	; MEMORY MAPPED
-          .equ	ICR4H	= 0xa7	; MEMORY MAPPED
+          .equ	OCR4AH	= 0xa9	; MEMORY MAPPED
           .equ	ICR4L	= 0xa6	; MEMORY MAPPED
-          .equ	TCNT4H	= 0xa5	; MEMORY MAPPED
+          .equ	ICR4H	= 0xa7	; MEMORY MAPPED
           .equ	TCNT4L	= 0xa4	; MEMORY MAPPED
+          .equ	TCNT4H	= 0xa5	; MEMORY MAPPED
           .equ	TCCR4C	= 0xa2	; MEMORY MAPPED
           .equ	TCCR4B	= 0xa1	; MEMORY MAPPED
           .equ	TCCR4A	= 0xa0	; MEMORY MAPPED
-          .equ	OCR3CH	= 0x9d	; MEMORY MAPPED
           .equ	OCR3CL	= 0x9c	; MEMORY MAPPED
-          .equ	OCR3BH	= 0x9b	; MEMORY MAPPED
+          .equ	OCR3CH	= 0x9d	; MEMORY MAPPED
           .equ	OCR3BL	= 0x9a	; MEMORY MAPPED
-          .equ	OCR3AH	= 0x99	; MEMORY MAPPED
+          .equ	OCR3BH	= 0x9b	; MEMORY MAPPED
           .equ	OCR3AL	= 0x98	; MEMORY MAPPED
-          .equ	ICR3H	= 0x97	; MEMORY MAPPED
+          .equ	OCR3AH	= 0x99	; MEMORY MAPPED
           .equ	ICR3L	= 0x96	; MEMORY MAPPED
-          .equ	TCNT3H	= 0x95	; MEMORY MAPPED
+          .equ	ICR3H	= 0x97	; MEMORY MAPPED
           .equ	TCNT3L	= 0x94	; MEMORY MAPPED
+          .equ	TCNT3H	= 0x95	; MEMORY MAPPED
           .equ	TCCR3C	= 0x92	; MEMORY MAPPED
           .equ	TCCR3B	= 0x91	; MEMORY MAPPED
           .equ	TCCR3A	= 0x90	; MEMORY MAPPED
-          .equ	OCR1CH	= 0x8d	; MEMORY MAPPED
           .equ	OCR1CL	= 0x8c	; MEMORY MAPPED
-          .equ	OCR1BH	= 0x8b	; MEMORY MAPPED
+          .equ	OCR1CH	= 0x8d	; MEMORY MAPPED
           .equ	OCR1BL	= 0x8a	; MEMORY MAPPED
-          .equ	OCR1AH	= 0x89	; MEMORY MAPPED
+          .equ	OCR1BH	= 0x8b	; MEMORY MAPPED
           .equ	OCR1AL	= 0x88	; MEMORY MAPPED
-          .equ	ICR1H	= 0x87	; MEMORY MAPPED
+          .equ	OCR1AH	= 0x89	; MEMORY MAPPED
           .equ	ICR1L	= 0x86	; MEMORY MAPPED
-          .equ	TCNT1H	= 0x85	; MEMORY MAPPED
+          .equ	ICR1H	= 0x87	; MEMORY MAPPED
           .equ	TCNT1L	= 0x84	; MEMORY MAPPED
+          .equ	TCNT1H	= 0x85	; MEMORY MAPPED
           .equ	TCCR1C	= 0x82	; MEMORY MAPPED
           .equ	TCCR1B	= 0x81	; MEMORY MAPPED
           .equ	TCCR1A	= 0x80	; MEMORY MAPPED
@@ -206,8 +206,8 @@ AVRA   Ver. 1.4.2 src/main.asm Mon Sep 15 17:40:24 2025
           .equ	CLKPR	= 0x61	; MEMORY MAPPED
           .equ	WDTCSR	= 0x60	; MEMORY MAPPED
           .equ	SREG	= 0x3f
-          .equ	SPH	= 0x3e
           .equ	SPL	= 0x3d
+          .equ	SPH	= 0x3e
           .equ	EIND	= 0x3c
           .equ	RAMPZ	= 0x3b
           .equ	SPMCSR	= 0x37
@@ -329,6 +329,22 @@ AVRA   Ver. 1.4.2 src/main.asm Mon Sep 15 17:40:24 2025
           .equ	UMSEL0	= UMSEL00	; For compatibility
           .equ	UMSEL01	= 7	; USART Mode Select
           .equ	UMSEL1	= UMSEL01	; For compatibility
+         
+         ; UBRR0H - USART Baud Rate Register High Byte
+          .equ	UBRR8	= 0	; USART Baud Rate Register bit 8
+          .equ	UBRR9	= 1	; USART Baud Rate Register bit 9
+          .equ	UBRR10	= 2	; USART Baud Rate Register bit 10
+          .equ	UBRR11	= 3	; USART Baud Rate Register bit 11
+         
+         ; UBRR0L - USART Baud Rate Register Low Byte
+          .equ	_UBRR0	= 0	; USART Baud Rate Register bit 0
+          .equ	_UBRR1	= 1	; USART Baud Rate Register bit 1
+          .equ	UBRR2	= 2	; USART Baud Rate Register bit 2
+          .equ	UBRR3	= 3	; USART Baud Rate Register bit 3
+          .equ	UBRR4	= 4	; USART Baud Rate Register bit 4
+          .equ	UBRR5	= 5	; USART Baud Rate Register bit 5
+          .equ	UBRR6	= 6	; USART Baud Rate Register bit 6
+          .equ	UBRR7	= 7	; USART Baud Rate Register bit 7
          
          
          ; ***** TWI **************************
@@ -679,7 +695,7 @@ AVRA   Ver. 1.4.2 src/main.asm Mon Sep 15 17:40:24 2025
           .equ	PORTG5	= 5	; 
           .equ	PG5	= 5	; For compatibility
          
-         ; DDRG
+         ; DDRG - Data Direction Register, Port G
           .equ	DDG0	= 0	; 
           .equ	DDG1	= 1	; 
           .equ	DDG2	= 2	; 
@@ -894,14 +910,14 @@ AVRA   Ver. 1.4.2 src/main.asm Mon Sep 15 17:40:24 2025
           .equ	TCNT0_7	= 7	; 
          
          ; OCR0A - Timer/Counter0 Output Compare Register
-          .equ	OCROA_0	= 0	; 
-          .equ	OCROA_1	= 1	; 
-          .equ	OCROA_2	= 2	; 
-          .equ	OCROA_3	= 3	; 
-          .equ	OCROA_4	= 4	; 
-          .equ	OCROA_5	= 5	; 
-          .equ	OCROA_6	= 6	; 
-          .equ	OCROA_7	= 7	; 
+          .equ	OCR0A_0	= 0	; 
+          .equ	OCR0A_1	= 1	; 
+          .equ	OCR0A_2	= 2	; 
+          .equ	OCR0A_3	= 3	; 
+          .equ	OCR0A_4	= 4	; 
+          .equ	OCR0A_5	= 5	; 
+          .equ	OCR0A_6	= 6	; 
+          .equ	OCR0A_7	= 7	; 
          
          ; OCR0B - Timer/Counter0 Output Compare Register
           .equ	OCR0B_0	= 0	; 
@@ -958,24 +974,24 @@ AVRA   Ver. 1.4.2 src/main.asm Mon Sep 15 17:40:24 2025
           .equ	TCNT2_7	= 7	; Timer/Counter 2 bit 7
          
          ; OCR2A - Timer/Counter2 Output Compare Register A
-          .equ	OCR2_0	= 0	; Timer/Counter2 Output Compare Register Bit 0
-          .equ	OCR2_1	= 1	; Timer/Counter2 Output Compare Register Bit 1
-          .equ	OCR2_2	= 2	; Timer/Counter2 Output Compare Register Bit 2
-          .equ	OCR2_3	= 3	; Timer/Counter2 Output Compare Register Bit 3
-          .equ	OCR2_4	= 4	; Timer/Counter2 Output Compare Register Bit 4
-          .equ	OCR2_5	= 5	; Timer/Counter2 Output Compare Register Bit 5
-          .equ	OCR2_6	= 6	; Timer/Counter2 Output Compare Register Bit 6
-          .equ	OCR2_7	= 7	; Timer/Counter2 Output Compare Register Bit 7
+          .equ	OCR2A_0	= 0	; Timer/Counter2 Output Compare Register Bit 0
+          .equ	OCR2A_1	= 1	; Timer/Counter2 Output Compare Register Bit 1
+          .equ	OCR2A_2	= 2	; Timer/Counter2 Output Compare Register Bit 2
+          .equ	OCR2A_3	= 3	; Timer/Counter2 Output Compare Register Bit 3
+          .equ	OCR2A_4	= 4	; Timer/Counter2 Output Compare Register Bit 4
+          .equ	OCR2A_5	= 5	; Timer/Counter2 Output Compare Register Bit 5
+          .equ	OCR2A_6	= 6	; Timer/Counter2 Output Compare Register Bit 6
+          .equ	OCR2A_7	= 7	; Timer/Counter2 Output Compare Register Bit 7
          
          ; OCR2B - Timer/Counter2 Output Compare Register B
-         ;.equ	OCR2_0	= 0	; Timer/Counter2 Output Compare Register Bit 0
-         ;.equ	OCR2_1	= 1	; Timer/Counter2 Output Compare Register Bit 1
-         ;.equ	OCR2_2	= 2	; Timer/Counter2 Output Compare Register Bit 2
-         ;.equ	OCR2_3	= 3	; Timer/Counter2 Output Compare Register Bit 3
-         ;.equ	OCR2_4	= 4	; Timer/Counter2 Output Compare Register Bit 4
-         ;.equ	OCR2_5	= 5	; Timer/Counter2 Output Compare Register Bit 5
-         ;.equ	OCR2_6	= 6	; Timer/Counter2 Output Compare Register Bit 6
-         ;.equ	OCR2_7	= 7	; Timer/Counter2 Output Compare Register Bit 7
+          .equ	OCR2B_0	= 0	; Timer/Counter2 Output Compare Register Bit 0
+          .equ	OCR2B_1	= 1	; Timer/Counter2 Output Compare Register Bit 1
+          .equ	OCR2B_2	= 2	; Timer/Counter2 Output Compare Register Bit 2
+          .equ	OCR2B_3	= 3	; Timer/Counter2 Output Compare Register Bit 3
+          .equ	OCR2B_4	= 4	; Timer/Counter2 Output Compare Register Bit 4
+          .equ	OCR2B_5	= 5	; Timer/Counter2 Output Compare Register Bit 5
+          .equ	OCR2B_6	= 6	; Timer/Counter2 Output Compare Register Bit 6
+          .equ	OCR2B_7	= 7	; Timer/Counter2 Output Compare Register Bit 7
          
          ; ASSR - Asynchronous Status Register
           .equ	TCR2BUB	= 0	; Timer/Counter Control Register2 Update Busy
@@ -1037,13 +1053,31 @@ AVRA   Ver. 1.4.2 src/main.asm Mon Sep 15 17:40:24 2025
          
          ; UCSR1C - USART Control and Status Register C
           .equ	UCPOL1	= 0	; Clock Polarity
-          .equ	UCSZ10_UCPHA1	= 1	; Character Size
-          .equ	UCSZ11_UDORD1	= 2	; Character Size
+          .equ	UCSZ10	= 1	; Character Size
+          .equ	UCPHA1	= UCSZ10	; For compatibility
+          .equ	UCSZ11	= 2	; Character Size
+          .equ	UDORD1	= UCSZ11	; For compatibility
           .equ	USBS1	= 3	; Stop Bit Select
           .equ	UPM10	= 4	; Parity Mode Bit 0
           .equ	UPM11	= 5	; Parity Mode Bit 1
           .equ	UMSEL10	= 6	; USART Mode Select
           .equ	UMSEL11	= 7	; USART Mode Select
+         
+         ; UBRR1H - USART Baud Rate Register High Byte
+          .equ	UBRR_8	= 0	; USART Baud Rate Register bit 8
+          .equ	UBRR_9	= 1	; USART Baud Rate Register bit 9
+          .equ	UBRR_10	= 2	; USART Baud Rate Register bit 10
+          .equ	UBRR_11	= 3	; USART Baud Rate Register bit 11
+         
+         ; UBRR1L - USART Baud Rate Register Low Byte
+          .equ	UBRR_0	= 0	; USART Baud Rate Register bit 0
+          .equ	UBRR_1	= 1	; USART Baud Rate Register bit 1
+          .equ	UBRR_2	= 2	; USART Baud Rate Register bit 2
+          .equ	UBRR_3	= 3	; USART Baud Rate Register bit 3
+          .equ	UBRR_4	= 4	; USART Baud Rate Register bit 4
+          .equ	UBRR_5	= 5	; USART Baud Rate Register bit 5
+          .equ	UBRR_6	= 6	; USART Baud Rate Register bit 6
+          .equ	UBRR_7	= 7	; USART Baud Rate Register bit 7
          
          
          ; ***** EEPROM ***********************
@@ -1120,6 +1154,16 @@ AVRA   Ver. 1.4.2 src/main.asm Mon Sep 15 17:40:24 2025
           .equ	FOC5C	= 5	; Force Output Compare 5C
           .equ	FOC5B	= 6	; Force Output Compare 5B
           .equ	FOC5A	= 7	; Force Output Compare 5A
+         
+         ; ICR5H - Timer/Counter5 Input Capture Register High Byte
+          .equ	ICR5H0	= 0	; Timer/Counter5 Input Capture Register High Byte bit 0
+          .equ	ICR5H1	= 1	; Timer/Counter5 Input Capture Register High Byte bit 1
+          .equ	ICR5H2	= 2	; Timer/Counter5 Input Capture Register High Byte bit 2
+          .equ	ICR5H3	= 3	; Timer/Counter5 Input Capture Register High Byte bit 3
+          .equ	ICR5H4	= 4	; Timer/Counter5 Input Capture Register High Byte bit 4
+          .equ	ICR5H5	= 5	; Timer/Counter5 Input Capture Register High Byte bit 5
+          .equ	ICR5H6	= 6	; Timer/Counter5 Input Capture Register High Byte bit 6
+          .equ	ICR5H7	= 7	; Timer/Counter5 Input Capture Register High Byte bit 7
          
          ; ICR5L - Timer/Counter5 Input Capture Register Low Byte
           .equ	ICR5L0	= 0	; Timer/Counter5 Input Capture Register Low Byte bit 0
@@ -1359,7 +1403,7 @@ AVRA   Ver. 1.4.2 src/main.asm Mon Sep 15 17:40:24 2025
           .equ	SREG_Z	= 1	; Zero Flag
           .equ	SREG_N	= 2	; Negative Flag
           .equ	SREG_V	= 3	; Two's Complement Overflow Flag
-          .equ	SREG_S	= 4
+          .equ	SREG_S	= 4	; Sign Bit
           .equ	SREG_H	= 5	; Half Carry Flag
           .equ	SREG_T	= 6	; Bit Copy Storage
           .equ	SREG_I	= 7	; Global Interrupt Enable
@@ -1408,7 +1452,7 @@ AVRA   Ver. 1.4.2 src/main.asm Mon Sep 15 17:40:24 2025
           .equ	CLKPS1	= 1	; 
           .equ	CLKPS2	= 2	; 
           .equ	CLKPS3	= 3	; 
-          .equ	CPKPCE	= 7	; 
+          .equ	CLKPCE	= 7	; 
          
          ; SMCR - Sleep Mode Control Register
           .equ	SE	= 0	; Sleep Enable
@@ -1585,13 +1629,29 @@ AVRA   Ver. 1.4.2 src/main.asm Mon Sep 15 17:40:24 2025
          
          ; UCSR2C - USART Control and Status Register C
           .equ	UCPOL2	= 0	; Clock Polarity
-          .equ	UCSZ20_UCPHA2	= 1	; Character Size
-          .equ	UCSZ21_UDORD2	= 2	; Character Size
+          .equ	UCSZ20	= 1	; Character Size
+          .equ	UCSZ21	= 2	; Character Size
           .equ	USBS2	= 3	; Stop Bit Select
           .equ	UPM20	= 4	; Parity Mode Bit 0
           .equ	UPM21	= 5	; Parity Mode Bit 1
           .equ	UMSEL20	= 6	; USART Mode Select
           .equ	UMSEL21	= 7	; USART Mode Select
+         
+         ; UBRR2H - USART Baud Rate Register High Byte
+         ;.equ	UBRR8	= 0	; USART Baud Rate Register bit 8
+         ;.equ	UBRR9	= 1	; USART Baud Rate Register bit 9
+         ;.equ	UBRR10	= 2	; USART Baud Rate Register bit 10
+         ;.equ	UBRR11	= 3	; USART Baud Rate Register bit 11
+         
+         ; UBRR2L - USART Baud Rate Register Low Byte
+          .equ	UBRR0	= 0	; USART Baud Rate Register bit 0
+          .equ	UBRR1	= 1	; USART Baud Rate Register bit 1
+         ;.equ	UBRR2	= 2	; USART Baud Rate Register bit 2
+         ;.equ	UBRR3	= 3	; USART Baud Rate Register bit 3
+         ;.equ	UBRR4	= 4	; USART Baud Rate Register bit 4
+         ;.equ	UBRR5	= 5	; USART Baud Rate Register bit 5
+         ;.equ	UBRR6	= 6	; USART Baud Rate Register bit 6
+         ;.equ	UBRR7	= 7	; USART Baud Rate Register bit 7
          
          
          ; ***** USART3 ***********************
@@ -1627,13 +1687,29 @@ AVRA   Ver. 1.4.2 src/main.asm Mon Sep 15 17:40:24 2025
          
          ; UCSR3C - USART Control and Status Register C
           .equ	UCPOL3	= 0	; Clock Polarity
-          .equ	UCSZ30_UCPHA3	= 1	; Character Size
-          .equ	UCSZ31_UDORD3	= 2	; Character Size
+          .equ	UCSZ30	= 1	; Character Size
+          .equ	UCSZ31	= 2	; Character Size
           .equ	USBS3	= 3	; Stop Bit Select
           .equ	UPM30	= 4	; Parity Mode Bit 0
           .equ	UPM31	= 5	; Parity Mode Bit 1
           .equ	UMSEL30	= 6	; USART Mode Select
           .equ	UMSEL31	= 7	; USART Mode Select
+         
+         ; UBRR3H - USART Baud Rate Register High Byte
+         ;.equ	UBRR8	= 0	; USART Baud Rate Register bit 8
+         ;.equ	UBRR9	= 1	; USART Baud Rate Register bit 9
+         ;.equ	UBRR10	= 2	; USART Baud Rate Register bit 10
+         ;.equ	UBRR11	= 3	; USART Baud Rate Register bit 11
+         
+         ; UBRR3L - USART Baud Rate Register Low Byte
+         ;.equ	UBRR0	= 0	; USART Baud Rate Register bit 0
+         ;.equ	UBRR1	= 1	; USART Baud Rate Register bit 1
+         ;.equ	UBRR2	= 2	; USART Baud Rate Register bit 2
+         ;.equ	UBRR3	= 3	; USART Baud Rate Register bit 3
+         ;.equ	UBRR4	= 4	; USART Baud Rate Register bit 4
+         ;.equ	UBRR5	= 5	; USART Baud Rate Register bit 5
+         ;.equ	UBRR6	= 6	; USART Baud Rate Register bit 6
+         ;.equ	UBRR7	= 7	; USART Baud Rate Register bit 7
          
          
          
@@ -1654,8 +1730,8 @@ AVRA   Ver. 1.4.2 src/main.asm Mon Sep 15 17:40:24 2025
           .equ	CKSEL3	= 3	; Select Clock Source
           .equ	SUT0	= 4	; Select start-up time
           .equ	SUT1	= 5	; Select start-up time
-          .equ	CKOUT	= 6	; Oscillator options
-          .equ	CLKDIV8	= 7	; Divide clock by 8
+          .equ	CKOUT	= 6	; Clock output
+          .equ	CKDIV8	= 7	; Divide clock by 8
          
          ; HIGH fuse bits
           .equ	BOOTRST	= 0	; Select Reset Vector
